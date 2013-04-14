@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Guess Who?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/animate-custom.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .form-signin {
+            text-align: center;
+            max-width: 300px;
+            padding: 19px 29px 29px;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+        }
+
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+
+        #generatedName {
+            height: 20px;
+            font-size: 20pt;
+            margin-bottom: 20px;
+        }
+    </style>
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Guess Who?</h2>
+        <div id="generatedName"></div>
+        <button class="btn btn-large btn-warning" id="randomBtn">Get random name!</button>
+    </form>
+</div>
+<!-- /container -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+		var $generatedName = $('#generatedName'),
+    		$randomBtn = $('#randomBtn'),
+			$container = $('#container'),
+			names = ['Rachel','Jon','Nick','Ashley','Jake','Joshua','Emily','Kyle','Alex','Sarah','Justin','Megan',
+                     'Matt','Brandon','William','Connor','Chris','Daniel','Andy','James','David','Zachary','Joseph','Tyler'],
+			fadeInAnimations = ['bounceIn', 'rotateIn', 'rotateInUpLeft', 'rotateInDownLeft', 'rotateInUpRight', 'rotateInDownRight'],
+			actionAnimations = ['shake', 'tada', 'swing', 'wobble', 'wiggle'],
+        	numNames = (names.length - 1),
+			numFades = (fadeInAnimations.length - 1),
+			numActions = (actionAnimations.length - 1),
+			fadePos = getRandomInt(0, numFades),
+			actionPos = getRandomInt(0, numActions);
+			fadeClass = fadeInAnimations[fadePos],
+			actionClass = actionAnimations[actionPos],
+			faceClassToAdd = 'animated ' + fadeClass,
+			actionClassToAdd = 'animated ' + actionClass;
+			
+		$container.addClass(faceClassToAdd);
+
+        $randomBtn.click(function(e) {
+            e.preventDefault();
+            var namePos = getRandomInt(0, numNames);
+			$container.removeClass().addClass(actionClassToAdd);
+				
+            $generatedName.fadeOut('slow', function() {
+                $(this).html(names[namePos]);
+                $(this).fadeIn('slow');
+				$container.removeClass();
+            });
+            return false;
+        });
+        /**
+         * Returns a random integer between min and max
+         * Using Math.round() will give you a non-uniform distribution!
+         */
+        function getRandomInt (min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    });
+</script>
+</body>
+</html>
